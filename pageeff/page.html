@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <link rel="stylesheet" href="page.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="toggle">
+        <ion-icon name="menu-outline"></ion-icon>
+    </div>
+    <nav>
+
+        <div>
+            <p>*</p>
+            <p>xrtl world</p>
+        </div>
+        <div>
+            <p>xrtl world</p>
+            <p>*</p>
+        </div>
+    </nav>
+    <div id="square-container"></div>
+
+    <div class="hero">
+        <div class="header">
+            <h1>Th<span>e</span><br> pi<span>x</span>el<br> world</h1>
+        </div>
+       
+     
+    </div>
+
+    <div class="content-overlay">
+        <div class="nav-header">
+            <h1>work eith us</h1>
+        </div>
+        <div class="nav-links">
+            <div class="nav-link">
+                <span>(01)</span>
+                <a href="#">Home</a>
+            </div>
+            <div class="nav-link">
+                <span>(02)</span>
+                <a href="#">oue studio</a>
+            </div>
+            <div class="nav-link">
+                <span>(03)</span>
+                <a href="#">projects</a>
+            </div>
+            <div class="nav-link">
+                <span>(04)</span>
+                <a href="#">Community</a>
+            </div>
+        </div> 
+    </div>
+    
+      
+    </div>
+    <script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"
+        integrity="sha512-7Au1ULjlT8PP1Ygs6mDZh9NuQD0A5prSrAUiPHMXpU6g3UMd8qesVnhug5X4RoDr35x5upNpx0A6Sisz1LSTXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            const menu = document.querySelector(".content-overlay")
+            gsap.set(menu, {
+                opacity: 0
+            })
+            const squareContainer = document.querySelector("#square-container")
+            const squareSize = 100
+            const screenwidth = window.innerWidth
+            const screenheight = window.innerHeight
+            const numCols = Math.ceil(screenwidth / squareSize)
+            const numRows = Math.ceil(screenheight / squareSize)
+            const numSquares = numCols * numRows
+            squareContainer.style.height = `${numRows * squareSize}px`
+            squareContainer.style.width = `${numCols * squareSize}px`
+
+            let squares = []
+
+            function createSquares() {
+                for (let i = 0; i < numSquares; i++) {
+                    const square = document.createElement("div")
+                    square.classList.add("square")
+                    squareContainer.appendChild(square)
+                    squares.push(square)
+                }
+            }
+            function animateSquares() {
+                gsap.fromTo(squares, {
+                    opacity: 0
+                }, {
+                    opacity: 1,
+                    delay: 0.5,
+                    duration: 0.0005,
+                    stagger: {
+                        each: 0.004,
+                        from: "random"
+                    }
+                })
+                gsap.to(squares, {
+                    opacity: 0,
+                    delay: 1.5,
+                    duration: 0.005,
+                    stagger: {
+                        each: 0.004,
+                        from: "random"
+                    }
+                })
+            }
+            let overlayVisible = false
+            document.getElementById("toggle").addEventListener("click", () => {
+                squareContainer.innerHTML = ""
+                squares = []
+                createSquares()
+                animateSquares()
+                gsap.to(menu, 0.025, {
+                    opacity: overlayVisible ? 0 : 1,
+                    visibility: overlayVisible ? "hidden" : "visible",
+                    delay: 1.15
+                })
+                gsap.to(menu, {
+                    zIndex: overlayVisible ? -1 : 0,
+                    delay: overlayVisible ? 0 : 2
+                })
+                overlayVisible = !overlayVisible
+            })
+
+        })
+    </script>
+   
+</body>
+
+</html>
