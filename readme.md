@@ -17,4 +17,4 @@
 </p>
 <br>
 <h2>Inspiration</h2>
-<a href="https://www.vrtlworld.io"></a>
+<a href="www.vrtlworld.io">vrtlworld</a>
